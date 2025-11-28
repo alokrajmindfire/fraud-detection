@@ -9,12 +9,15 @@ class PredictionService:
         self.model = pickle.load(open(MODEL_PATH, "rb"))
         self.scaler = pickle.load(open(SCALER_PATH, "rb"))
 
+    
     def predict(self, data):
+        # Convert input to array
         features = np.array(list(data.dict().values())).reshape(1, -1)
-        
-        # Scale Amount & Time
-        features[:, :2] = self.scaler.transform(features[:, :2])
 
+        # Scale Amount & Time (columns 0 and 1)
+        features[:, [0, 1]] = self.scaler.transform(features[:, [0, 1]])
+
+        # Predict
         prediction = self.model.predict(features)[0]
         proba = self.model.predict_proba(features)[0][1]
 
