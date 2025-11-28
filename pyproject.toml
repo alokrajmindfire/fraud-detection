@@ -1,0 +1,26 @@
+[project]
+name = "cpp"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "alok-raj",email = "Alok.Raj@mindfiresolutions.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["uvicorn[standard] (>=0.38.0,<0.39.0)", "fastapi (>=0.122.0,<0.123.0)", "pydantic (>=2.12.5,<3.0.0)", "numpy (>=2.3.5,<3.0.0)", "pandas (>=2.3.3,<3.0.0)", "scikit-learn (>=1.7.2,<2.0.0)", "imblearn (>=0.0,<0.1)", "streamlit (>=1.51.0,<2.0.0)", "requests (>=2.32.5,<3.0.0)", "matplotlib (>=3.10.7,<4.0.0)", "seaborn (>=0.13.2,<0.14.0)", "python-multipart (>=0.0.20,<0.0.21)", "joblib (>=1.5.2,<2.0.0)"]
+
+[tool.poetry]
+package-mode = false
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+[tool.poe.tasks]
+dev = "uvicorn app.main:app --reload"
+frontend = "streamlit run frontend/main.py"
+test = "poetry run python -m unittest discover -s app/tests -p '*.py'"
+
+[dependency-groups]
+dev = [
+    "poethepoet (>=0.37.0,<0.38.0)",
+    "uvicorn[standard] (>=0.38.0,<0.39.0)"
+]
